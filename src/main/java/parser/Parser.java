@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import exception.CloudFlareBlockException;
 import model.Profile;
 import model.SearchBody;
@@ -37,7 +36,8 @@ public class Parser {
             .enable(SerializationFeature.INDENT_OUTPUT)
             .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    private static final String URL = "https://www.artstation.com/api/v2/search/users.json";
+    private static final String URL_FOR_USERS = "https://www.artstation.com/api/v2/search/users.json";
+    private static final String URL_FOR_INDEX = "https://www.artstation.com/";
     private static final String PUBLIC_CSRF_TOKEN_HEADER_NAME = "public-csrf-token";
     private static final String CSRF_TOKEN_ATTRIBUTE_VALUE = "csrf-token";
 
@@ -46,7 +46,7 @@ public class Parser {
 
     public Parser() {
         try {
-            Response response = Request.Get("https://www.artstation.com/").execute();
+            Response response = Request.Get(URL_FOR_INDEX).execute();
             HttpResponse httpResponse = response.returnResponse();
             int statusCode = httpResponse.getStatusLine().getStatusCode();
             if (statusCode == 200) {
@@ -111,7 +111,7 @@ public class Parser {
 
     @Nullable
     private UsersResponse doRequest(SearchBody searchBody) throws IOException {
-        Response response = Request.Post(URL)
+        Response response = Request.Post(URL_FOR_USERS)
                 .addHeader(CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
                 .addHeader(COOKIE, cookieValue)
                 .addHeader(PUBLIC_CSRF_TOKEN_HEADER_NAME, publicCsrfTokenValue)
