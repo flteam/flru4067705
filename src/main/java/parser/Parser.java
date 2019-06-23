@@ -121,7 +121,7 @@ public class Parser {
         int statusCode = httpResponse.getStatusLine().getStatusCode();
         if (statusCode == 200) {
             return OBJECT_MAPPER.readValue(httpResponse.getEntity().getContent(), UsersResponse.class);
-        } else if (statusCode == 429 || statusCode == 412) {
+        } else if (statusCode == 429) {
             throw new CloudFlareBlockException();
         }
         return null;
