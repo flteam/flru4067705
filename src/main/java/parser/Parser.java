@@ -10,11 +10,16 @@ import exception.CloudFlareBlockException;
 import model.Profile;
 import model.SearchBody;
 import model.UsersResponse;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
 import org.apache.http.entity.ContentType;
 import org.jetbrains.annotations.Nullable;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -23,6 +28,7 @@ import java.util.Set;
 
 import static org.apache.http.HttpHeaders.CONTENT_TYPE;
 import static org.apache.http.cookie.SM.COOKIE;
+import static org.apache.http.cookie.SM.SET_COOKIE;
 
 public class Parser {
 
@@ -30,18 +36,39 @@ public class Parser {
             .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
             .enable(SerializationFeature.INDENT_OUTPUT)
             .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
-            .configure(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE, false)
-            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-            .registerModule(new JavaTimeModule());
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     private static final String URL = "https://www.artstation.com/api/v2/search/users.json";
     private static final String PUBLIC_CSRF_TOKEN_HEADER_NAME = "public-csrf-token";
+    private static final String CSRF_TOKEN_ATTRIBUTE_VALUE = "csrf-token";
 
     private String cookieValue;
     private String publicCsrfTokenValue;
 
-    public Parser(String cookieValue, String publicCsrfTokenValue) {
-        this.cookieValue = cookieValue;
-        this.publicCsrfTokenValue = publicCsrfTokenValue;
+    public Parser() {
+        try {
+            Response response = Request.Get("https://www.artstation.com/").execute();
+            HttpResponse httpResponse = response.returnResponse();
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            if (statusCode == 200) {
+                this.cookieValue = httpResponse.getLastHeader(SET_COOKIE).getValue();
+                this.publicCsrfTokenValue = getCsrfToken(IOUtils.toString(httpResponse.getEntity().getContent()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Nullable
+    private String getCsrfToken(String html) {
+        Document document = Jsoup.parse(html);
+        Elements metas = document.getElementsByTag("meta");
+        for (Element metaTag : metas) {
+            String name = metaTag.attr("name");
+            if (CSRF_TOKEN_ATTRIBUTE_VALUE.equals(name)) {
+                return metaTag.attr("content");
+            }
+        }
+        return null;
     }
 
     public Set<Profile> searchAll(long limit) {
