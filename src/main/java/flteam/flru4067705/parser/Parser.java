@@ -92,7 +92,7 @@ public class Parser {
         } else if (statusCode == 412) {
             throw new PreconditionFailedException();
         } else if (statusCode == 429) {
-            throw new CloudFlareBlockException();
+            throw new CloudFlareBlockException("CloudFlare has blocked you!");
         }
         return null;
     }

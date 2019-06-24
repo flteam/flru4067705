@@ -35,7 +35,7 @@ public class App {
                 Set<Profile> profiles = parser.searchAllByCountry(country);
                 ProfileUtil.saveProfilesByCountry(profiles, country);
             } catch (CloudFlareBlockException e) {
-                throw new CloudFlareBlockException("CloudFlare has block you on country " + country.id);
+                throw new CloudFlareBlockException("CloudFlare has blocked you on country " + country.id);
             }
             i++;
         }
