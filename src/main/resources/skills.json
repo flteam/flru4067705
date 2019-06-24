@@ -1,0 +1,392 @@
+[
+  {
+    "skill_name": "2D Animation"
+  },
+  {
+    "skill_name": "3D Animation"
+  },
+  {
+    "skill_name": "3D Modeling"
+  },
+  {
+    "skill_name": "3D Printing"
+  },
+  {
+    "skill_name": "3D Scanning"
+  },
+  {
+    "skill_name": "3D Visualization"
+  },
+  {
+    "skill_name": "Acting"
+  },
+  {
+    "skill_name": "Airbrush"
+  },
+  {
+    "skill_name": "Anatomy"
+  },
+  {
+    "skill_name": "App Development"
+  },
+  {
+    "skill_name": "Architectural Design"
+  },
+  {
+    "skill_name": "Architectural Visualization"
+  },
+  {
+    "skill_name": "Art Direction"
+  },
+  {
+    "skill_name": "Book Cover Illustration"
+  },
+  {
+    "skill_name": "Branding"
+  },
+  {
+    "skill_name": "Cartooning"
+  },
+  {
+    "skill_name": "Character Animation"
+  },
+  {
+    "skill_name": "Character Design"
+  },
+  {
+    "skill_name": "Character Modeling"
+  },
+  {
+    "skill_name": "Cinematics"
+  },
+  {
+    "skill_name": "Cloth Simulation"
+  },
+  {
+    "skill_name": "Clothing Design"
+  },
+  {
+    "skill_name": "Color Grading"
+  },
+  {
+    "skill_name": "Color Management"
+  },
+  {
+    "skill_name": "Comic Art"
+  },
+  {
+    "skill_name": "Compositing"
+  },
+  {
+    "skill_name": "Concept Art"
+  },
+  {
+    "skill_name": "Concept Design"
+  },
+  {
+    "skill_name": "Costume Design"
+  },
+  {
+    "skill_name": "Creature Design"
+  },
+  {
+    "skill_name": "Creature Modeling"
+  },
+  {
+    "skill_name": "Digital Painting"
+  },
+  {
+    "skill_name": "Digital Sculpting"
+  },
+  {
+    "skill_name": "Drawing"
+  },
+  {
+    "skill_name": "Environment Design"
+  },
+  {
+    "skill_name": "Environment Modeling"
+  },
+  {
+    "skill_name": "Facial Rigging \u0026amp; Animation"
+  },
+  {
+    "skill_name": "Fashion Design"
+  },
+  {
+    "skill_name": "Film Editing"
+  },
+  {
+    "skill_name": "Fluid Simulation"
+  },
+  {
+    "skill_name": "Game Design"
+  },
+  {
+    "skill_name": "Game Development"
+  },
+  {
+    "skill_name": "Graphic Design"
+  },
+  {
+    "skill_name": "HDRI Photography"
+  },
+  {
+    "skill_name": "Hair/Fur Simulation"
+  },
+  {
+    "skill_name": "Hard Surface Modeling"
+  },
+  {
+    "skill_name": "High-poly Modeling"
+  },
+  {
+    "skill_name": "Illustration"
+  },
+  {
+    "skill_name": "Industrial Design"
+  },
+  {
+    "skill_name": "Kitbashing"
+  },
+  {
+    "skill_name": "Level Design"
+  },
+  {
+    "skill_name": "Lighting"
+  },
+  {
+    "skill_name": "Logo Design"
+  },
+  {
+    "skill_name": "Look Development"
+  },
+  {
+    "skill_name": "Low-poly Modeling"
+  },
+  {
+    "skill_name": "Map Design"
+  },
+  {
+    "skill_name": "Marketing Illustration"
+  },
+  {
+    "skill_name": "Matte Painting"
+  },
+  {
+    "skill_name": "Medical Illustration"
+  },
+  {
+    "skill_name": "Mel Scripting"
+  },
+  {
+    "skill_name": "Motion Capture"
+  },
+  {
+    "skill_name": "Motion Graphics"
+  },
+  {
+    "skill_name": "PBR Texturing"
+  },
+  {
+    "skill_name": "Painting"
+  },
+  {
+    "skill_name": "Particle Effects"
+  },
+  {
+    "skill_name": "Photo-manipulation"
+  },
+  {
+    "skill_name": "Photogrammetry"
+  },
+  {
+    "skill_name": "Photography"
+  },
+  {
+    "skill_name": "Physically Based Rendering"
+  },
+  {
+    "skill_name": "Pixel Art"
+  },
+  {
+    "skill_name": "Portraiture"
+  },
+  {
+    "skill_name": "Post-production"
+  },
+  {
+    "skill_name": "Pre-viz"
+  },
+  {
+    "skill_name": "Product Design"
+  },
+  {
+    "skill_name": "Production Design"
+  },
+  {
+    "skill_name": "Programming"
+  },
+  {
+    "skill_name": "Project Management"
+  },
+  {
+    "skill_name": "Prop Design"
+  },
+  {
+    "skill_name": "Prop Modeling"
+  },
+  {
+    "skill_name": "Public Speaking"
+  },
+  {
+    "skill_name": "Python Scripting"
+  },
+  {
+    "skill_name": "QA Testing"
+  },
+  {
+    "skill_name": "Rendering"
+  },
+  {
+    "skill_name": "Retopology"
+  },
+  {
+    "skill_name": "Rigging"
+  },
+  {
+    "skill_name": "Rotoscoping"
+  },
+  {
+    "skill_name": "Scientific Animation"
+  },
+  {
+    "skill_name": "Scientific Illustration"
+  },
+  {
+    "skill_name": "Screenwriting"
+  },
+  {
+    "skill_name": "Sculpting"
+  },
+  {
+    "skill_name": "Sequential Art"
+  },
+  {
+    "skill_name": "Server Administration"
+  },
+  {
+    "skill_name": "Set Design"
+  },
+  {
+    "skill_name": "Shaders"
+  },
+  {
+    "skill_name": "Shading"
+  },
+  {
+    "skill_name": "Sketching"
+  },
+  {
+    "skill_name": "Software Development"
+  },
+  {
+    "skill_name": "Sound Design"
+  },
+  {
+    "skill_name": "Stage Design"
+  },
+  {
+    "skill_name": "Storyboarding"
+  },
+  {
+    "skill_name": "Storytelling"
+  },
+  {
+    "skill_name": "Teaching"
+  },
+  {
+    "skill_name": "Team Management"
+  },
+  {
+    "skill_name": "Texture Baking"
+  },
+  {
+    "skill_name": "Texturing"
+  },
+  {
+    "skill_name": "Traditional Art"
+  },
+  {
+    "skill_name": "Transport Design"
+  },
+  {
+    "skill_name": "Typography"
+  },
+  {
+    "skill_name": "UI Design"
+  },
+  {
+    "skill_name": "UV Mapping"
+  },
+  {
+    "skill_name": "UX Design"
+  },
+  {
+    "skill_name": "User Interface Design"
+  },
+  {
+    "skill_name": "VFX Supervision"
+  },
+  {
+    "skill_name": "Vector Illustration"
+  },
+  {
+    "skill_name": "Vehicle Modeling"
+  },
+  {
+    "skill_name": "Video Editing"
+  },
+  {
+    "skill_name": "Video Editing "
+  },
+  {
+    "skill_name": "Video Production"
+  },
+  {
+    "skill_name": "Video-based Motion Capture"
+  },
+  {
+    "skill_name": "Visual Development"
+  },
+  {
+    "skill_name": "Visual Effects"
+  },
+  {
+    "skill_name": "Visual Effects "
+  },
+  {
+    "skill_name": "Voice Acting"
+  },
+  {
+    "skill_name": "Watercolors"
+  },
+  {
+    "skill_name": "Weapon Design"
+  },
+  {
+    "skill_name": "Weapon Modeling"
+  },
+  {
+    "skill_name": "Web Design"
+  },
+  {
+    "skill_name": "Web Development"
+  },
+  {
+    "skill_name": "World Building"
+  },
+  {
+    "skill_name": "Writing"
+  }
+]

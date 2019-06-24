@@ -7,4 +7,8 @@ public class Skill {
     @JsonProperty("skill_name")
     public String skillName;
 
+    public String getSkillName() {
+        return skillName;
+    }
+
 }

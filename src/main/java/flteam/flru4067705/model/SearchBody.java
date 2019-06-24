@@ -2,30 +2,32 @@ package flteam.flru4067705.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collections;
+import java.util.List;
+
 public class SearchBody {
 
     public static final int MAX_PER_PAGE = 30;
 
-    public String query;
+    public String query = "";
 
     public Long page;
 
     @JsonProperty("per_page")
-    public Integer perPage;// [0;30]
+    public Integer perPage = 30;// [0;30]
 
-    public SearchBody(String query, Long page, Integer perPage) {
-        if (perPage < 0 || perPage > MAX_PER_PAGE) {
-            throw new IllegalArgumentException("perPage must be from [0;30]!");
-        }
-        this.query = query;
-        this.page = page;
-        this.perPage = perPage;
-    }
+    public List<Filter> filters;
 
-    public SearchBody(String query, Long page) {
-        this.query = query;
+    public SearchBody(Long page, List<Filter> filters) {
         this.page = page;
         this.perPage = MAX_PER_PAGE;
+        this.filters = filters;
+    }
+
+    public SearchBody(Long page, Filter filter) {
+        this.page = page;
+        this.perPage = MAX_PER_PAGE;
+        this.filters = Collections.singletonList(filter);
     }
 
 }

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.StringJoiner;
 
 public class Profile {
 
@@ -101,19 +99,6 @@ public class Profile {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(DELIMITER);
-        stringJoiner.add(Optional.ofNullable(fullName).orElse(""));
-        stringJoiner.add(Optional.ofNullable(location).orElse(""));
-        if (artstationProfileUrl != null) {
-            stringJoiner.add(artstationProfileUrl + "/profile");
-        } else {
-            stringJoiner.add("");
-        }
-        return stringJoiner.toString();
     }
 
 }
