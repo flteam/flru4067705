@@ -48,7 +48,6 @@ public class CsvUtil {
             for (Profile profile : profiles) {
                 ProfileCsv profileCsv = new ProfileCsv();
                 profileCsv.fullName = profile.fullName;
-                profileCsv.country = profile.location;
                 profileCsv.aboutUrl = profile.artstationProfileUrl;
                 profileCsv.skills = convertSkills(profile.skills);
                 addInfoToProfileCsv(profileCsv, profile.username);
@@ -89,6 +88,8 @@ public class CsvUtil {
         json = json.substring(0, json.length() - 7).replace("\\\"", "\"");
         JSONTokener jsonTokener = new JSONTokener(json);
         JSONObject jsonObject = new JSONObject(jsonTokener);
+        profileCsv.country = jsonObject.optString("country", null);
+        profileCsv.city = jsonObject.optString("city", null);
         profileCsv.email = jsonObject.optString("public_email", null);
         profileCsv.webSite = jsonObject.optString("website_url", null);
         profileCsv.fbUrl = jsonObject.optString("facebook_url", null);

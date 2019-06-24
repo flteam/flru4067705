@@ -9,6 +9,7 @@ public class ProfileCsv {
     private static final String DELIMITER = ";";
 
     public String fullName;
+    public String city;
     public String country;
     public String email;
     public String aboutUrl;
@@ -23,6 +24,7 @@ public class ProfileCsv {
         StringJoiner stringJoiner = new StringJoiner(DELIMITER);
         stringJoiner.add(Optional.ofNullable(fullName).orElse(""));
         stringJoiner.add(Optional.ofNullable(country).orElse(""));
+        stringJoiner.add(Optional.ofNullable(city).orElse(""));
         stringJoiner.add(Optional.ofNullable(email).orElse(""));
         stringJoiner.add(Optional.ofNullable(aboutUrl).orElse(""));
         stringJoiner.add(Optional.ofNullable(webSite).orElse(""));
