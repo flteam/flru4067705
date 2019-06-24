@@ -16,7 +16,7 @@ public class App {
 
     public static void main(String[] args) throws CloudFlareBlockException {
         downloadAllProfiles();
-        convertAllProfilesToCsv();
+        //convertAllProfilesToCsv();
     }
 
     /**

@@ -28,7 +28,7 @@ public class CountryUtil {
             return OBJECT_MAPPER.readValue(fileReader, new TypeReference<List<Country>>() {
             });
         } catch (IOException e) {
-            throw new RuntimeException()
+            throw new RuntimeException();
         }
     }
 
