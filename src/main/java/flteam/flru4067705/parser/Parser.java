@@ -1,14 +1,14 @@
-package parser;
+package flteam.flru4067705.parser;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import exception.CloudFlareBlockException;
-import model.Profile;
-import model.SearchBody;
-import model.UsersResponse;
+import flteam.flru4067705.exception.CloudFlareBlockException;
+import flteam.flru4067705.model.Profile;
+import flteam.flru4067705.model.SearchBody;
+import flteam.flru4067705.model.UsersResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;

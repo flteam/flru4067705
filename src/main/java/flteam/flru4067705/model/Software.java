@@ -1,4 +1,4 @@
-package model;
+package flteam.flru4067705.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
