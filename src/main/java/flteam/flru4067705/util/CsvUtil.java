@@ -9,12 +9,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import flteam.flru4067705.model.Profile;
 import flteam.flru4067705.model.ProfileCsv;
 import flteam.flru4067705.model.Skill;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.File;
 import java.io.FileReader;
@@ -47,12 +47,15 @@ public class CsvUtil {
             });
             for (Profile profile : profiles) {
                 ProfileCsv profileCsv = new ProfileCsv();
-                profileCsv.fio = profile.fullName;
+                profileCsv.fullName = profile.fullName;
                 profileCsv.country = profile.location;
-                profileCsv.about = profile.artstationProfileUrl;
+                profileCsv.aboutUrl = profile.artstationProfileUrl;
                 profileCsv.skills = convertSkills(profile.skills);
                 addInfoToProfileCsv(profileCsv, profile.username);
-                fileWriter.write(profileCsv + "\n");
+                if ((profileCsv.email != null && !profileCsv.email.isEmpty())
+                        || (profileCsv.fbUrl != null && !profileCsv.fbUrl.isEmpty())) {
+                    fileWriter.write(profileCsv + "\n");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,23 +77,23 @@ public class CsvUtil {
         return convertedSkills;
     }
 
-    //todo: капча не даёт получить JSON, придётся вытаскивать его из страницы профиля
     private static void addInfoToProfileCsv(@NotNull ProfileCsv profileCsv, String username) throws IOException {
-        String url = "https://www.artstation.com/users/" + username + "/quick.json";
-        Response response = Request.Get(url).execute();
-        HttpResponse httpResponse = response.returnResponse();
-        int statusCode = httpResponse.getStatusLine().getStatusCode();
-        if (statusCode == 200) {
-            JSONTokener jsonTokener = new JSONTokener(httpResponse.getEntity().getContent());
-            JSONObject jsonObject = new JSONObject(jsonTokener);
-            profileCsv.email = jsonObject.getString("public_email");
-            profileCsv.site = jsonObject.getString("website_url");
-            profileCsv.fb = jsonObject.getString("facebook_url");
-            profileCsv.linkedId = jsonObject.getString("linkedin_url");
-            profileCsv.instagram = jsonObject.getString("instagram_url");
-        } else {
-            throw new IOException("Status code is " + statusCode + " on " + url);
-        }
+        String url = "https://www.artstation.com/" + username + "/profile";
+        Document document = Jsoup.connect(url).get();
+        Element element = document.getElementsByClass("wrapper-main").get(0);
+        Element scriptElement = element.getElementsByTag("script").get(1);
+        String script = scriptElement.html();
+        String start = "cache.put('/users/" + username + "/quick.json', '";
+        int startIndex = script.indexOf(start) + start.length();
+        String json = script.substring(startIndex);
+        json = json.substring(0, json.length() - 7).replace("\\\"", "\"");
+        JSONTokener jsonTokener = new JSONTokener(json);
+        JSONObject jsonObject = new JSONObject(jsonTokener);
+        profileCsv.email = jsonObject.optString("public_email", null);
+        profileCsv.webSite = jsonObject.optString("website_url", null);
+        profileCsv.fbUrl = jsonObject.optString("facebook_url", null);
+        profileCsv.linkedInUrl = jsonObject.optString("linkedin_url", null);
+        profileCsv.instagramUrl = jsonObject.optString("instagram_url", null);
     }
 
 }
