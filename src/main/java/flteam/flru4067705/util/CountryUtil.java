@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import flteam.flru4067705.model.Country;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,15 +23,13 @@ public class CountryUtil {
     private CountryUtil() {
     }
 
-    @Nullable
     public static List<Country> getAllCountries() {
         try (FileReader fileReader = new FileReader(CountryUtil.class.getResource("/countries.json").getFile())) {
             return OBJECT_MAPPER.readValue(fileReader, new TypeReference<List<Country>>() {
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException()
         }
-        return null;
     }
 
 }

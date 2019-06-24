@@ -4,4 +4,8 @@ import java.io.IOException;
 
 public class CloudFlareBlockException extends IOException {
 
+    public CloudFlareBlockException(String message) {
+        super(message);
+    }
+
 }

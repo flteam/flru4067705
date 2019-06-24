@@ -24,7 +24,7 @@ public class ProfileUtil {
     }
 
     public static void saveProfilesByCountry(Set<Profile> profiles, Country country) {
-        try (FileWriter fileWriter = new FileWriter("profiles/" + country.id + ".json")) {
+        try (FileWriter fileWriter = new FileWriter("profiles/" + country.name + ".json")) {
             OBJECT_MAPPER.writeValue(fileWriter, profiles);
         } catch (IOException e) {
             e.printStackTrace();
