@@ -31,26 +31,20 @@ public class Parser {
             .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     private static final String URL_FOR_USERS = "https://www.artstation.com/api/v2/search/users.json";
-    private static final String URL_FOR_INDEX = "https://www.artstation.com/";
     private static final String PUBLIC_CSRF_TOKEN_HEADER_NAME = "public-csrf-token";
-    private static final String CSRF_TOKEN_ATTRIBUTE_VALUE = "csrf-token";
     private static final long TIMEOUT = TimeUnit.SECONDS.toMillis(11);
 
     private String cookieValue;
     private String publicCsrfTokenValue;
+    private String proxyHost;
+
+    public Parser(String cookieValue, String publicCsrfTokenValue, String proxyHost) {
+        this.cookieValue = cookieValue;
+        this.publicCsrfTokenValue = publicCsrfTokenValue;
+        this.proxyHost = proxyHost;
+    }
 
     public Parser(String cookieValue, String publicCsrfTokenValue) {
-       /* try {
-            Response response = Request.Get(URL_FOR_INDEX).execute();
-            HttpResponse httpResponse = response.returnResponse();
-            int statusCode = httpResponse.getStatusLine().getStatusCode();
-            if (statusCode == 200) {
-                this.cookieValue = httpResponse.getFirstHeader(SET_COOKIE).getValue();
-                this.publicCsrfTokenValue = getCsrfToken(IOUtils.toString(httpResponse.getEntity().getContent()));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
         this.cookieValue = cookieValue;
         this.publicCsrfTokenValue = publicCsrfTokenValue;
     }
@@ -79,12 +73,15 @@ public class Parser {
 
     @Nullable
     private UsersResponse doRequest(SearchBody searchBody) throws IOException {
-        Response response = Request.Post(URL_FOR_USERS)
+        Request request = Request.Post(URL_FOR_USERS)
                 .addHeader(CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
                 .addHeader(COOKIE, cookieValue)
                 .addHeader(PUBLIC_CSRF_TOKEN_HEADER_NAME, publicCsrfTokenValue)
-                .bodyString(OBJECT_MAPPER.writeValueAsString(searchBody), ContentType.APPLICATION_JSON)
-                .execute();
+                .bodyString(OBJECT_MAPPER.writeValueAsString(searchBody), ContentType.APPLICATION_JSON);
+        if (proxyHost != null) {
+            request.viaProxy(proxyHost);
+        }
+        Response response = request.execute();
         HttpResponse httpResponse = response.returnResponse();
         int statusCode = httpResponse.getStatusLine().getStatusCode();
         if (statusCode == 200) {
