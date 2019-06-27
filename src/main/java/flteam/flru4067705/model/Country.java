@@ -1,5 +1,7 @@
 package flteam.flru4067705.model;
 
+import java.util.Objects;
+
 public class Country {
 
     public String id;
@@ -15,6 +17,24 @@ public class Country {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Country country = (Country) o;
+        return Objects.equals(id, country.id) &&
+                Objects.equals(name, country.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 
 }

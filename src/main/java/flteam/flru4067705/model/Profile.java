@@ -7,8 +7,6 @@ import java.util.Objects;
 
 public class Profile {
 
-    private static final String DELIMITER = "; ";
-
     public Long id;
 
     public String username;
@@ -70,8 +68,12 @@ public class Profile {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Profile profile = (Profile) o;
         return Objects.equals(id, profile.id) &&
                 Objects.equals(username, profile.username) &&
@@ -98,7 +100,7 @@ public class Profile {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id, username, largeAvatarUrl, smallCoverUrl, isStaff, proMember, artstationProfileUrl, likesCount, followersCount, availableFullTime, availableContract, availableFreelance, location, projectViewsCount, fullName, headline, followed, followingBack, sampleProjects, skills, softwares);
     }
 
 }

@@ -8,9 +8,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import flteam.flru4067705.model.Country;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CountryUtil {
 
@@ -23,12 +28,26 @@ public class CountryUtil {
     private CountryUtil() {
     }
 
-    public static List<Country> getAllCountries() {
+    public static Set<Country> getAllCountries() {
         try (FileReader fileReader = new FileReader(CountryUtil.class.getResource("/countries.json").getFile())) {
-            return OBJECT_MAPPER.readValue(fileReader, new TypeReference<List<Country>>() {
+            return OBJECT_MAPPER.readValue(fileReader, new TypeReference<Set<Country>>() {
             });
         } catch (IOException e) {
             throw new RuntimeException();
+        }
+    }
+
+    public static void checkThatAllCountriesArePresent() {
+        Set<Country> countries = CountryUtil.getAllCountries();
+        File file = new File("profiles");
+        List<String> jsons = Stream.of(Objects.requireNonNull(file.listFiles()))
+                .map(File::getName)
+                .map(s -> s.replace(".json", ""))
+                .collect(Collectors.toList());
+        for (Country country : countries) {
+            if (!jsons.contains(country.name)) {
+                System.out.println("Country " + country.name + " is absent!");
+            }
         }
     }
 

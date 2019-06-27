@@ -7,7 +7,7 @@ import java.util.List;
 public class UsersResponse {
 
     @JsonProperty("total_count")
-    public Long totalCount;
+    public Integer totalCount;
 
     @JsonProperty("data")
     public List<Profile> profiles;

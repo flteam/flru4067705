@@ -8,15 +8,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import flteam.flru4067705.exception.CloudFlareBlockException;
 import flteam.flru4067705.exception.PreconditionFailedException;
 import flteam.flru4067705.model.*;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
 import org.apache.http.entity.ContentType;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -32,13 +31,13 @@ public class Parser {
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     private static final String URL_FOR_USERS = "https://www.artstation.com/api/v2/search/users.json";
     private static final String PUBLIC_CSRF_TOKEN_HEADER_NAME = "public-csrf-token";
-    private static final long TIMEOUT = TimeUnit.SECONDS.toMillis(11);
+    public static final long TIMEOUT = TimeUnit.SECONDS.toMillis(11);
 
     private String cookieValue;
     private String publicCsrfTokenValue;
-    private String proxyHost;
+    private HttpHost proxyHost;
 
-    public Parser(String cookieValue, String publicCsrfTokenValue, String proxyHost) {
+    public Parser(String cookieValue, String publicCsrfTokenValue, HttpHost proxyHost) {
         this.cookieValue = cookieValue;
         this.publicCsrfTokenValue = publicCsrfTokenValue;
         this.proxyHost = proxyHost;
@@ -51,28 +50,26 @@ public class Parser {
 
     public Set<Profile> searchAllByCountry(Country country) throws CloudFlareBlockException {
         Set<Profile> result = new HashSet<>();
+        SearchBody searchBody = new SearchBody(1, Filter.buildCountryFilter(country));
         try {
-            SearchBody searchBody = new SearchBody(1L, Filter.buildCountryFilter(country));
             UsersResponse usersResponse = doRequest(searchBody);
-            if (usersResponse != null) {
-                long count = usersResponse.totalCount;
-                for (long i = 1; i <= count / SearchBody.MAX_PER_PAGE + 1; i++) {
-                    searchBody.page = i;
-                    usersResponse = doRequest(searchBody);
-                    Optional.ofNullable(usersResponse).ifPresent(ur -> result.addAll(ur.profiles));
-                    Thread.sleep(TIMEOUT);
-                }
+            int count = usersResponse.totalCount;
+            for (int i = 1; i <= count / SearchBody.MAX_PER_PAGE + 1; i++) {
+                searchBody.page = i;
+                usersResponse = doRequest(searchBody);
+                result.addAll(usersResponse.profiles);
+                Thread.sleep(TIMEOUT);
             }
         } catch (CloudFlareBlockException e) {
             throw e;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            System.out.println(searchBody + ", country: " + country.name);
         }
         return result;
     }
 
-    @Nullable
-    private UsersResponse doRequest(SearchBody searchBody) throws IOException {
+    public UsersResponse doRequest(SearchBody searchBody) throws IOException {
         Request request = Request.Post(URL_FOR_USERS)
                 .addHeader(CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
                 .addHeader(COOKIE, cookieValue)
@@ -89,9 +86,10 @@ public class Parser {
         } else if (statusCode == 412) {
             throw new PreconditionFailedException();
         } else if (statusCode == 429) {
-            throw new CloudFlareBlockException("CloudFlare has blocked you!");
+            throw new CloudFlareBlockException("CloudFlare has blocked you for proxy " + proxyHost.toHostString() + "!");
+        } else {
+            throw new IOException("Status code is " + statusCode + " for proxy " + proxyHost.toHostString());
         }
-        return null;
     }
 
 }
