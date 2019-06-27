@@ -22,9 +22,9 @@ import java.util.stream.Stream;
 public class App {
 
     private static final Queue<HttpHost> PROXIES = Stream.of(
-            new HttpHost("158.69.59.125", 8888),
-            new HttpHost("89.223.80.30", 8080),
-            new HttpHost("3.86.97.156", 8888)
+            new HttpHost("3.86.97.156", 8888),
+            new HttpHost("1.0.135.29", 8080),
+            new HttpHost("1.0.136.138", 8080)
     ).collect(Collectors.toCollection(ConcurrentLinkedQueue::new));
 
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(PROXIES.size());
@@ -35,8 +35,8 @@ public class App {
 
         //parallelDownloadAllProfiles(cookieValue, publicCsrfTokenValue);
         //CountryUtil.checkThatAllCountriesArePresent();
-        checkDownloadedProfiles(cookieValue, publicCsrfTokenValue);
-        //convertAllProfilesToCsv();
+        //checkDownloadedProfiles(cookieValue, publicCsrfTokenValue);
+        convertAllProfilesToCsv();
     }
 
     /**
@@ -80,11 +80,13 @@ public class App {
     private static void convertAllProfilesToCsv() {
         File file = new File("profiles");
         File[] jsons = Objects.requireNonNull(file.listFiles());
-        int i = 1;
         for (File json : jsons) {
-            System.out.println("Convert for " + json.getName() + ", " + i + "/" + jsons.length);
-            CsvUtil.convertProfileToCsv(json.getName());
-            i++;
+            EXECUTOR_SERVICE.submit(() -> {
+                HttpHost proxy = PROXIES.poll();
+                System.out.println("Convert for " + json.getName());
+                CsvUtil.convertProfileToCsv(json.getName(), proxy.getHostName(), proxy.getPort());
+                PROXIES.offer(proxy);
+            });
         }
     }
 

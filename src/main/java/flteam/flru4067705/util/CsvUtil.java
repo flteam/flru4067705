@@ -9,7 +9,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import flteam.flru4067705.model.Profile;
 import flteam.flru4067705.model.ProfileCsv;
 import flteam.flru4067705.model.Skill;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.jsoup.Jsoup;
@@ -40,7 +42,7 @@ public class CsvUtil {
     /**
      * Метод конвертирования профиля в CSV с добавлением доп. полей
      */
-    public static void convertProfileToCsv(String jsonFileName) {
+    public static void convertProfileToCsv(String jsonFileName, String proxyHost, int proxyPort) {
         try (FileReader fileReader = new FileReader("profiles/" + jsonFileName);
              FileWriter fileWriter = new FileWriter(new File("csv/" + jsonFileName.replace("json", "csv")))) {
             Set<Profile> profiles = OBJECT_MAPPER.readValue(fileReader, new TypeReference<Set<Profile>>() {
@@ -50,14 +52,15 @@ public class CsvUtil {
                 profileCsv.fullName = profile.fullName;
                 profileCsv.aboutUrl = profile.artstationProfileUrl;
                 profileCsv.skills = convertSkills(profile.skills);
-                addInfoToProfileCsv(profileCsv, profile.username);
+                addInfoToProfileCsv(profileCsv, profile.username, proxyHost, proxyPort);
                 if ((profileCsv.email != null && !profileCsv.email.isEmpty())
                         || (profileCsv.fbUrl != null && !profileCsv.fbUrl.isEmpty())) {
                     fileWriter.write(profileCsv + "\n");
                 }
             }
-        } catch (IOException e) {
+        } catch (Throwable e) {
             e.printStackTrace();
+            System.out.println("For proxy " + proxyHost + ":" + proxyPort + " and country " + jsonFileName.replace(".json", ""));
         }
     }
 
@@ -76,25 +79,36 @@ public class CsvUtil {
         return convertedSkills;
     }
 
-    private static void addInfoToProfileCsv(@NotNull ProfileCsv profileCsv, String username) throws IOException {
+    private static void addInfoToProfileCsv(@NotNull ProfileCsv profileCsv,
+                                            String username,
+                                            String proxyHost,
+                                            int proxyPort) throws IOException {
         String url = "https://www.artstation.com/" + username + "/profile";
-        Document document = Jsoup.connect(url).get();
+        Document document = Jsoup.connect(url).proxy(proxyHost, proxyPort).get();
         Element element = document.getElementsByClass("wrapper-main").get(0);
         Element scriptElement = element.getElementsByTag("script").get(1);
         String script = scriptElement.html();
         String start = "cache.put('/users/" + username + "/quick.json', '";
         int startIndex = script.indexOf(start) + start.length();
         String json = script.substring(startIndex);
-        json = json.substring(0, json.length() - 7).replace("\\\"", "\"");
+        json = StringEscapeUtils.unescapeJava(json.substring(0, json.length() - 7));
         JSONTokener jsonTokener = new JSONTokener(json);
-        JSONObject jsonObject = new JSONObject(jsonTokener);
-        profileCsv.country = jsonObject.optString("country", null);
-        profileCsv.city = jsonObject.optString("city", null);
-        profileCsv.email = jsonObject.optString("public_email", null);
-        profileCsv.webSite = jsonObject.optString("website_url", null);
-        profileCsv.fbUrl = jsonObject.optString("facebook_url", null);
-        profileCsv.linkedInUrl = jsonObject.optString("linkedin_url", null);
-        profileCsv.instagramUrl = jsonObject.optString("instagram_url", null);
+        try {
+            JSONObject jsonObject = new JSONObject(jsonTokener);
+            profileCsv.country = jsonObject.optString("country", null);
+            profileCsv.city = jsonObject.optString("city", null);
+            profileCsv.email = jsonObject.optString("public_email", null);
+            profileCsv.webSite = jsonObject.optString("website_url", null);
+            profileCsv.fbUrl = jsonObject.optString("facebook_url", null);
+            profileCsv.linkedInUrl = jsonObject.optString("linkedin_url", null);
+            profileCsv.instagramUrl = jsonObject.optString("instagram_url", null);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            System.out.println(json);
+            System.out.println();
+            System.out.println();
+            System.out.println(script);
+        }
     }
 
 }
