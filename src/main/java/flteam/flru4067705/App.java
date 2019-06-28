@@ -22,9 +22,10 @@ import java.util.stream.Stream;
 public class App {
 
     private static final Queue<HttpHost> PROXIES = Stream.of(
-            new HttpHost("3.86.97.156", 8888),
-            new HttpHost("1.0.135.29", 8080),
-            new HttpHost("1.0.136.138", 8080)
+            new HttpHost("213.166.88.162", 30038),
+            new HttpHost("213.166.65.87", 30038),
+            new HttpHost("2.59.177.133", 30038),
+            new HttpHost("2.59.178.121", 30038)
     ).collect(Collectors.toCollection(ConcurrentLinkedQueue::new));
 
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(PROXIES.size());
@@ -34,11 +35,11 @@ public class App {
         String cookieValue = "__cfduid=dddf0f182d88dab09e177c74e305912be1561296638; visitor-uuid=e0d35665-5502-43f5-b9f2-7c7bde188149; country_code=RU; continent_code=EU; __stripe_mid=330eb27a-f1ab-4537-883f-59e20b932ca8; PRIVATE-CSRF-TOKEN=vAr%2BLFU4V56o14lPC3csAj2yozobuVspnrzCv4cbzmc%3D; __cf_bm=2c226180e422fcb39cb46231931c8339e053891e-1561568940-1800-AcHK9DqRZz4Ea05TNv/NLjd9Yr9QjcsHfSEeRXrkAyPHO5eMyBeeMerjH8jJp2ng8Usz14xbZ6rK7/q9r+YHSjY=; __stripe_sid=90318407-c84d-4256-86ed-471e613fe167";
         String publicCsrfTokenValue = "f2yHHYHSON3w5cSnTHpkKJIqqaapSykQBwXt2fv4VUPDZnkx1OpvQ1gyTehHDUgqr5gKnLLycjmZuS9mfOObJA==";
 
-        //parallelDownloadAllProfiles(cookieValue, publicCsrfTokenValue);
+        parallelDownloadAllProfiles(cookieValue, publicCsrfTokenValue);
         //CountryUtil.checkThatAllCountriesArePresent();
         //checkDownloadedProfiles(cookieValue, publicCsrfTokenValue);
         //convertAllProfilesToCsvWithProxy();
-        convertAllProfilesToCsv();
+        //convertAllProfilesToCsv();
     }
 
     /**

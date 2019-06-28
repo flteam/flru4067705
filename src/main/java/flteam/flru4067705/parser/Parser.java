@@ -50,13 +50,16 @@ public class Parser {
 
     public Set<Profile> searchAllByCountry(Country country) throws CloudFlareBlockException {
         Set<Profile> result = new HashSet<>();
-        SearchBody searchBody = new SearchBody(1, Filter.buildCountryFilter(country));
+        SearchBody searchBody = new SearchBody(334, 29, Filter.buildCountryFilter(country));
         try {
             UsersResponse usersResponse = doRequest(searchBody);
             int count = usersResponse.totalCount;
-            for (int i = 1; i <= count / SearchBody.MAX_PER_PAGE + 1; i++) {
+            for (int i = 334; i <= count / searchBody.perPage + 1; i++) {
                 searchBody.page = i;
                 usersResponse = doRequest(searchBody);
+                if (usersResponse.totalCount.equals(0)) {
+                    break;
+                }
                 result.addAll(usersResponse.profiles);
                 Thread.sleep(TIMEOUT);
             }

@@ -26,7 +26,7 @@ public class SearchBody {
     public Integer page;
 
     @JsonProperty("per_page")
-    public Integer perPage = 30;// [0;30]
+    public Integer perPage = MAX_PER_PAGE;// [0;30]
 
     public List<Filter> filters;
 
@@ -39,6 +39,12 @@ public class SearchBody {
     public SearchBody(Integer page, Filter filter) {
         this.page = page;
         this.perPage = MAX_PER_PAGE;
+        this.filters = Collections.singletonList(filter);
+    }
+
+    public SearchBody(Integer page, Integer perPage, Filter filter) {
+        this.page = page;
+        this.perPage = perPage;
         this.filters = Collections.singletonList(filter);
     }
 
