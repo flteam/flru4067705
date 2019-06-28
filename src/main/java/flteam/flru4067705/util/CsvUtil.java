@@ -19,16 +19,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CsvUtil {
 
@@ -128,6 +124,27 @@ public class CsvUtil {
             if (e.getStatusCode() != 404) {
                 throw e;
             }
+        }
+    }
+
+    public static void compactAllCsvInOne() {
+        try (FileWriter fileWriter = new FileWriter("all.csv")) {
+            List<File> csvs = Stream.of(new File("csv").listFiles())
+                    .filter(Objects::nonNull)
+                    .sorted(Comparator.comparing(File::getName))
+                    .collect(Collectors.toList());
+            for (File file : csvs) {
+                try (Scanner scanner = new Scanner(file)) {
+                    while (scanner.hasNextLine()) {
+                        String line = scanner.nextLine();
+                        fileWriter.write(line + "\n");
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
