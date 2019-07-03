@@ -48,13 +48,21 @@ public class Parser {
         this.publicCsrfTokenValue = publicCsrfTokenValue;
     }
 
-    public Set<Profile> searchAllByCountry(Country country) throws CloudFlareBlockException {
+    public Set<Profile> searchAllByCountryAndSkills(Country country, Set<Skill> skills) throws CloudFlareBlockException {
+        Set<Profile> profiles = new HashSet<>();
+        for (Skill skill : skills) {
+            SearchBody searchBody = new SearchBody(1, Filter.buildCountryAndSkillFilters(country, skill));
+            profiles.addAll(search(searchBody));
+        }
+        return profiles;
+    }
+
+    private Set<Profile> search(SearchBody searchBody) throws CloudFlareBlockException {
         Set<Profile> result = new HashSet<>();
-        SearchBody searchBody = new SearchBody(334, 29, Filter.buildCountryFilter(country));
         try {
             UsersResponse usersResponse = doRequest(searchBody);
             int count = usersResponse.totalCount;
-            for (int i = 334; i <= count / searchBody.perPage + 1; i++) {
+            for (int i = 1; i <= count / searchBody.perPage + 1; i++) {
                 searchBody.page = i;
                 usersResponse = doRequest(searchBody);
                 if (usersResponse.totalCount.equals(0)) {
@@ -67,9 +75,14 @@ public class Parser {
             throw e;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            System.out.println(searchBody + ", country: " + country.name);
+            System.out.println(searchBody);
         }
         return result;
+    }
+
+    public Set<Profile> searchAllByCountry(Country country) throws CloudFlareBlockException {
+        SearchBody searchBody = new SearchBody(1, Filter.buildCountryFilter(country));
+        return search(searchBody);
     }
 
     public UsersResponse doRequest(SearchBody searchBody) throws IOException {

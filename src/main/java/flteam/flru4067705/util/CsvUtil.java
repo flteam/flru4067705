@@ -33,7 +33,7 @@ public class CsvUtil {
             .enable(SerializationFeature.INDENT_OUTPUT)
             .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    private static final List<Skill> SKILLS = SkillUtil.getAllSkills();
+    private static final Set<Skill> SKILLS = SkillUtil.getAllSkills();
 
     private CsvUtil() {
     }
@@ -99,7 +99,8 @@ public class CsvUtil {
                 String json = matcher.group(1);
                 JSONTokener jsonTokener = new JSONTokener(
                         json.replace("\\\"", "\"")
-                                .replace("\\\"", "\"")
+                                .replace("\\\\\"", "\\\"")
+                                .replaceAll("\\\\{2,}", "")
                 );
                 try {
                     JSONObject jsonObject = new JSONObject(jsonTokener);
@@ -128,6 +129,7 @@ public class CsvUtil {
     }
 
     public static void compactAllCsvInOne() {
+        int count = 0;
         try (FileWriter fileWriter = new FileWriter("all.csv")) {
             List<File> csvs = Stream.of(new File("csv").listFiles())
                     .filter(Objects::nonNull)
@@ -138,6 +140,7 @@ public class CsvUtil {
                     while (scanner.hasNextLine()) {
                         String line = scanner.nextLine();
                         fileWriter.write(line + "\n");
+                        count++;
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -146,6 +149,7 @@ public class CsvUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(count);
     }
 
 }

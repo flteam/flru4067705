@@ -10,7 +10,7 @@ import flteam.flru4067705.model.Skill;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 public class SkillUtil {
 
@@ -23,9 +23,9 @@ public class SkillUtil {
     private SkillUtil() {
     }
 
-    public static List<Skill> getAllSkills() {
+    public static Set<Skill> getAllSkills() {
         try (FileReader fileReader = new FileReader(SkillUtil.class.getResource("/skills.json").getFile())) {
-            return OBJECT_MAPPER.readValue(fileReader, new TypeReference<List<Skill>>() {
+            return OBJECT_MAPPER.readValue(fileReader, new TypeReference<Set<Skill>>() {
             });
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -35,7 +35,7 @@ public class Helper {
             .enable(SerializationFeature.INDENT_OUTPUT)
             .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    private static final List<Skill> SKILLS = SkillUtil.getAllSkills();
+    private static final Set<Skill> SKILLS = SkillUtil.getAllSkills();
 
     public static void main(String[] args) {
         try {

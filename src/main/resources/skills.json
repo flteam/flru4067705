@@ -1,392 +1,522 @@
 [
   {
+    "id": 1,
     "skill_name": "2D Animation"
   },
   {
+    "id": 19,
     "skill_name": "3D Animation"
   },
   {
+    "id": 20,
     "skill_name": "3D Modeling"
   },
   {
+    "id": 21,
     "skill_name": "3D Printing"
   },
   {
+    "id": 84,
     "skill_name": "3D Scanning"
   },
   {
+    "id": 22,
     "skill_name": "3D Visualization"
   },
   {
+    "id": 328,
     "skill_name": "Acting"
   },
   {
+    "id": 591,
     "skill_name": "Airbrush"
   },
   {
+    "id": 2,
     "skill_name": "Anatomy"
   },
   {
+    "id": 249,
     "skill_name": "App Development"
   },
   {
+    "id": 89,
     "skill_name": "Architectural Design"
   },
   {
+    "id": 50,
     "skill_name": "Architectural Visualization"
   },
   {
+    "id": 3,
     "skill_name": "Art Direction"
   },
   {
+    "id": 580,
     "skill_name": "Book Cover Illustration"
   },
   {
+    "id": 397,
     "skill_name": "Branding"
   },
   {
+    "id": 287,
     "skill_name": "Cartooning"
   },
   {
+    "id": 52,
     "skill_name": "Character Animation"
   },
   {
+    "id": 47,
     "skill_name": "Character Design"
   },
   {
+    "id": 23,
     "skill_name": "Character Modeling"
   },
   {
+    "id": 40,
     "skill_name": "Cinematics"
   },
   {
+    "id": 590,
     "skill_name": "Cloth Simulation"
   },
   {
+    "id": 711,
     "skill_name": "Clothing Design"
   },
   {
+    "id": 157,
     "skill_name": "Color Grading"
   },
   {
+    "id": 367,
     "skill_name": "Color Management"
   },
   {
+    "id": 384,
     "skill_name": "Comic Art"
   },
   {
+    "id": 4,
     "skill_name": "Compositing"
   },
   {
+    "id": 5,
     "skill_name": "Concept Art"
   },
   {
+    "id": 6,
     "skill_name": "Concept Design"
   },
   {
+    "id": 238,
     "skill_name": "Costume Design"
   },
   {
+    "id": 67,
     "skill_name": "Creature Design"
   },
   {
+    "id": 24,
     "skill_name": "Creature Modeling"
   },
   {
+    "id": 7,
     "skill_name": "Digital Painting"
   },
   {
+    "id": 25,
     "skill_name": "Digital Sculpting"
   },
   {
+    "id": 64,
     "skill_name": "Drawing"
   },
   {
+    "id": 8,
     "skill_name": "Environment Design"
   },
   {
+    "id": 26,
     "skill_name": "Environment Modeling"
   },
   {
+    "id": 27,
     "skill_name": "Facial Rigging \u0026amp; Animation"
   },
   {
+    "id": 149,
     "skill_name": "Fashion Design"
   },
   {
+    "id": 267,
     "skill_name": "Film Editing"
   },
   {
+    "id": 158,
     "skill_name": "Fluid Simulation"
   },
   {
+    "id": 41,
     "skill_name": "Game Design"
   },
   {
+    "id": 42,
     "skill_name": "Game Development"
   },
   {
+    "id": 100,
     "skill_name": "Graphic Design"
   },
   {
+    "id": 425,
     "skill_name": "HDRI Photography"
   },
   {
+    "id": 690,
     "skill_name": "Hair/Fur Simulation"
   },
   {
+    "id": 29,
     "skill_name": "Hard Surface Modeling"
   },
   {
+    "id": 85,
     "skill_name": "High-poly Modeling"
   },
   {
+    "id": 9,
     "skill_name": "Illustration"
   },
   {
+    "id": 180,
     "skill_name": "Industrial Design"
   },
   {
+    "id": 475,
     "skill_name": "Kitbashing"
   },
   {
+    "id": 104,
     "skill_name": "Level Design"
   },
   {
+    "id": 30,
     "skill_name": "Lighting"
   },
   {
+    "id": 377,
     "skill_name": "Logo Design"
   },
   {
+    "id": 10,
     "skill_name": "Look Development"
   },
   {
+    "id": 31,
     "skill_name": "Low-poly Modeling"
   },
   {
+    "id": 51,
     "skill_name": "Map Design"
   },
   {
+    "id": 46,
     "skill_name": "Marketing Illustration"
   },
   {
+    "id": 11,
     "skill_name": "Matte Painting"
   },
   {
+    "id": 175,
     "skill_name": "Medical Illustration"
   },
   {
+    "id": 32,
     "skill_name": "Mel Scripting"
   },
   {
+    "id": 33,
     "skill_name": "Motion Capture"
   },
   {
+    "id": 12,
     "skill_name": "Motion Graphics"
   },
   {
+    "id": 482,
     "skill_name": "PBR Texturing"
   },
   {
+    "id": 43,
     "skill_name": "Painting"
   },
   {
+    "id": 34,
     "skill_name": "Particle Effects"
   },
   {
+    "id": 102,
     "skill_name": "Photo-manipulation"
   },
   {
+    "id": 467,
     "skill_name": "Photogrammetry"
   },
   {
+    "id": 44,
     "skill_name": "Photography"
   },
   {
+    "id": 557,
     "skill_name": "Physically Based Rendering"
   },
   {
+    "id": 275,
     "skill_name": "Pixel Art"
   },
   {
+    "id": 1024,
     "skill_name": "Portraiture"
   },
   {
+    "id": 842,
     "skill_name": "Post-production"
   },
   {
+    "id": 49,
     "skill_name": "Pre-viz"
   },
   {
+    "id": 86,
     "skill_name": "Product Design"
   },
   {
+    "id": 236,
     "skill_name": "Production Design"
   },
   {
+    "id": 320,
     "skill_name": "Programming"
   },
   {
+    "id": 387,
     "skill_name": "Project Management"
   },
   {
+    "id": 66,
     "skill_name": "Prop Design"
   },
   {
+    "id": 35,
     "skill_name": "Prop Modeling"
   },
   {
+    "id": 329,
     "skill_name": "Public Speaking"
   },
   {
+    "id": 276,
     "skill_name": "Python Scripting"
   },
   {
+    "id": 3746,
     "skill_name": "QA Testing"
   },
   {
+    "id": 13,
     "skill_name": "Rendering"
   },
   {
+    "id": 63,
     "skill_name": "Retopology"
   },
   {
+    "id": 36,
     "skill_name": "Rigging"
   },
   {
+    "id": 1071,
     "skill_name": "Rotoscoping"
   },
   {
+    "id": 174,
     "skill_name": "Scientific Animation"
   },
   {
+    "id": 176,
     "skill_name": "Scientific Illustration"
   },
   {
+    "id": 957,
     "skill_name": "Screenwriting"
   },
   {
+    "id": 45,
     "skill_name": "Sculpting"
   },
   {
+    "id": 98,
     "skill_name": "Sequential Art"
   },
   {
+    "id": 406,
     "skill_name": "Server Administration"
   },
   {
+    "id": 80,
     "skill_name": "Set Design"
   },
   {
+    "id": 178,
     "skill_name": "Shaders"
   },
   {
+    "id": 14,
     "skill_name": "Shading"
   },
   {
+    "id": 344,
     "skill_name": "Sketching"
   },
   {
+    "id": 333,
     "skill_name": "Software Development"
   },
   {
+    "id": 366,
     "skill_name": "Sound Design"
   },
   {
+    "id": 709,
     "skill_name": "Stage Design"
   },
   {
+    "id": 15,
     "skill_name": "Storyboarding"
   },
   {
+    "id": 248,
     "skill_name": "Storytelling"
   },
   {
+    "id": 326,
     "skill_name": "Teaching"
   },
   {
+    "id": 359,
     "skill_name": "Team Management"
   },
   {
+    "id": 589,
     "skill_name": "Texture Baking"
   },
   {
+    "id": 37,
     "skill_name": "Texturing"
   },
   {
+    "id": 429,
     "skill_name": "Traditional Art"
   },
   {
+    "id": 16,
     "skill_name": "Transport Design"
   },
   {
+    "id": 71,
     "skill_name": "Typography"
   },
   {
+    "id": 48,
     "skill_name": "UI Design"
   },
   {
+    "id": 38,
     "skill_name": "UV Mapping"
   },
   {
+    "id": 369,
     "skill_name": "UX Design"
   },
   {
+    "id": 17,
     "skill_name": "User Interface Design"
   },
   {
+    "id": 373,
     "skill_name": "VFX Supervision"
   },
   {
+    "id": 164,
     "skill_name": "Vector Illustration"
   },
   {
+    "id": 130,
     "skill_name": "Vehicle Modeling"
   },
   {
+    "id": 247,
     "skill_name": "Video Editing"
   },
   {
+    "id": 3460,
     "skill_name": "Video Editing "
   },
   {
+    "id": 4751,
     "skill_name": "Video Production"
   },
   {
+    "id": 719,
     "skill_name": "Video-based Motion Capture"
   },
   {
+    "id": 99,
     "skill_name": "Visual Development"
   },
   {
+    "id": 39,
     "skill_name": "Visual Effects"
   },
   {
+    "id": 2206,
     "skill_name": "Visual Effects "
   },
   {
+    "id": 1983,
     "skill_name": "Voice Acting"
   },
   {
+    "id": 228,
     "skill_name": "Watercolors"
   },
   {
+    "id": 740,
     "skill_name": "Weapon Design"
   },
   {
+    "id": 129,
     "skill_name": "Weapon Modeling"
   },
   {
+    "id": 18,
     "skill_name": "Web Design"
   },
   {
+    "id": 2848,
     "skill_name": "Web Development"
   },
   {
+    "id": 136,
     "skill_name": "World Building"
   },
   {
+    "id": 394,
     "skill_name": "Writing"
   }
 ]
