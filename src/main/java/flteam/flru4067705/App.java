@@ -31,7 +31,7 @@ public class App {
     ).collect(Collectors.toCollection(ConcurrentLinkedQueue::new));
 
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(PROXIES.size());
-    private static final ExecutorService EXECUTOR_SERVICE_FOR_CSV = Executors.newFixedThreadPool(50);
+    private static final ExecutorService EXECUTOR_SERVICE_FOR_CSV = Executors.newFixedThreadPool(10);
 
     public static void main(String[] args) {
         String cookieValue = "__cfduid=dddf0f182d88dab09e177c74e305912be1561296638; visitor-uuid=e0d35665-5502-43f5-b9f2-7c7bde188149; country_code=RU; continent_code=EU; __stripe_mid=330eb27a-f1ab-4537-883f-59e20b932ca8; PRIVATE-CSRF-TOKEN=vAr%2BLFU4V56o14lPC3csAj2yozobuVspnrzCv4cbzmc%3D; __cf_bm=2c226180e422fcb39cb46231931c8339e053891e-1561568940-1800-AcHK9DqRZz4Ea05TNv/NLjd9Yr9QjcsHfSEeRXrkAyPHO5eMyBeeMerjH8jJp2ng8Usz14xbZ6rK7/q9r+YHSjY=; __stripe_sid=90318407-c84d-4256-86ed-471e613fe167";
@@ -42,8 +42,9 @@ public class App {
         //checkDownloadedProfiles(cookieValue, publicCsrfTokenValue);
         //convertAllProfilesToCsvWithProxy();
         //convertAllProfilesToCsv();
-        CsvUtil.compactAllCsvInOne();
+        //CsvUtil.compactAllCsvInOne();
         //parallelDownloadAllProfilesBySkills(cookieValue, publicCsrfTokenValue);
+        convertAllProfilesToCsvWithDivide();
     }
 
     /**
@@ -136,6 +137,17 @@ public class App {
         for (File json : jsons) {
             EXECUTOR_SERVICE_FOR_CSV.submit(() -> {
                 CsvUtil.convertProfileToCsv(json.getName(), null, 0);
+            });
+        }
+        EXECUTOR_SERVICE_FOR_CSV.shutdown();
+    }
+
+    private static void convertAllProfilesToCsvWithDivide() {
+        File file = new File("profiles");
+        File[] jsons = Objects.requireNonNull(file.listFiles());
+        for (File json : jsons) {
+            EXECUTOR_SERVICE_FOR_CSV.submit(() -> {
+                CsvUtil.convertProfileToCsvWithDivide(json.getName());
             });
         }
         EXECUTOR_SERVICE_FOR_CSV.shutdown();

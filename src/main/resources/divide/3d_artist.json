@@ -1,0 +1,126 @@
+[
+  {
+    "id": 20,
+    "skill_name": "3D Modeling"
+  },
+  {
+    "id": 21,
+    "skill_name": "3D Printing"
+  },
+  {
+    "id": 84,
+    "skill_name": "3D Scanning"
+  },
+  {
+    "id": 22,
+    "skill_name": "3D Visualization"
+  },
+  {
+    "id": 23,
+    "skill_name": "Character Modeling"
+  },
+  {
+    "id": 40,
+    "skill_name": "Cinematics"
+  },
+  {
+    "id": 590,
+    "skill_name": "Cloth Simulation"
+  },
+  {
+    "id": 4,
+    "skill_name": "Compositing"
+  },
+  {
+    "id": 24,
+    "skill_name": "Creature Modeling"
+  },
+  {
+    "id": 25,
+    "skill_name": "Digital Sculpting"
+  },
+  {
+    "id": 26,
+    "skill_name": "Environment Modeling"
+  },
+  {
+    "id": 158,
+    "skill_name": "Fluid Simulation"
+  },
+  {
+    "id": 690,
+    "skill_name": "Hair/Fur Simulation"
+  },
+  {
+    "id": 29,
+    "skill_name": "Hard Surface Modeling"
+  },
+  {
+    "id": 85,
+    "skill_name": "High-poly Modeling"
+  },
+  {
+    "id": 30,
+    "skill_name": "Lighting"
+  },
+  {
+    "id": 31,
+    "skill_name": "Low-poly Modeling"
+  },
+  {
+    "id": 482,
+    "skill_name": "PBR Texturing"
+  },
+  {
+    "id": 34,
+    "skill_name": "Particle Effects"
+  },
+  {
+    "id": 557,
+    "skill_name": "Physically Based Rendering"
+  },
+  {
+    "id": 35,
+    "skill_name": "Prop Modeling"
+  },
+  {
+    "id": 13,
+    "skill_name": "Rendering"
+  },
+  {
+    "id": 63,
+    "skill_name": "Retopology"
+  },
+  {
+    "id": 45,
+    "skill_name": "Sculpting"
+  },
+  {
+    "id": 178,
+    "skill_name": "Shaders"
+  },
+  {
+    "id": 14,
+    "skill_name": "Shading"
+  },
+  {
+    "id": 589,
+    "skill_name": "Texture Baking"
+  },
+  {
+    "id": 37,
+    "skill_name": "Texturing"
+  },
+  {
+    "id": 38,
+    "skill_name": "UV Mapping"
+  },
+  {
+    "id": 130,
+    "skill_name": "Vehicle Modeling"
+  },
+  {
+    "id": 129,
+    "skill_name": "Weapon Modeling"
+  }
+]

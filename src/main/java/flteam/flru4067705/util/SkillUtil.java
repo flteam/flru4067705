@@ -32,4 +32,40 @@ public class SkillUtil {
         }
     }
 
+    public static Set<Skill> getArtistSkills() {
+        try (FileReader fileReader = new FileReader(SkillUtil.class.getResource("/divide/artist.json").getFile())) {
+            return OBJECT_MAPPER.readValue(fileReader, new TypeReference<Set<Skill>>() {
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Set<Skill> getArchitectSkills() {
+        try (FileReader fileReader = new FileReader(SkillUtil.class.getResource("/divide/architect.json").getFile())) {
+            return OBJECT_MAPPER.readValue(fileReader, new TypeReference<Set<Skill>>() {
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Set<Skill> get3dArtistSkills() {
+        try (FileReader fileReader = new FileReader(SkillUtil.class.getResource("/divide/3d_artist.json").getFile())) {
+            return OBJECT_MAPPER.readValue(fileReader, new TypeReference<Set<Skill>>() {
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Set<Skill> get3dAnimSkills() {
+        try (FileReader fileReader = new FileReader(SkillUtil.class.getResource("/divide/3d_anim.json").getFile())) {
+            return OBJECT_MAPPER.readValue(fileReader, new TypeReference<Set<Skill>>() {
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

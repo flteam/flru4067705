@@ -34,6 +34,10 @@ public class CsvUtil {
             .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     private static final Set<Skill> SKILLS = SkillUtil.getAllSkills();
+    private static final Set<String> ANIM_3D_SKILLS = SkillUtil.get3dAnimSkills().stream().map(Skill::getSkillName).collect(Collectors.toSet());
+    private static final Set<String> ARTIST_3D_SKILLS = SkillUtil.get3dArtistSkills().stream().map(Skill::getSkillName).collect(Collectors.toSet());
+    private static final Set<String> ARCHITECT_SKILLS = SkillUtil.getArchitectSkills().stream().map(Skill::getSkillName).collect(Collectors.toSet());
+    private static final Set<String> ARTIST_SKILLS = SkillUtil.getArtistSkills().stream().map(Skill::getSkillName).collect(Collectors.toSet());
 
     private CsvUtil() {
     }
@@ -62,6 +66,74 @@ public class CsvUtil {
             e.printStackTrace();
             System.out.println("For proxy " + proxyHost + ":" + proxyPort + " and country " + jsonFileName.replace(".json", ""));
         }
+    }
+
+    public static void convertProfileToCsvWithDivide(String jsonFileName) {
+        String countryName = jsonFileName.replace(".json", "");
+        String dirName = "divide/" + countryName;
+        File dir = new File(dirName);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        try (FileReader fileReader = new FileReader("profiles/" + jsonFileName);
+             FileWriter anim3dFileWriter = new FileWriter(new File(dirName + "/3D аниматоры.csv"));
+             FileWriter artist3dFileWriter = new FileWriter(new File(dirName + "/3D художники.csv"));
+             FileWriter architectFileWriter = new FileWriter(new File(dirName + "/Архитекторы.csv"));
+             FileWriter artistFileWriter = new FileWriter(new File(dirName + "/Художники.csv"))) {
+            Set<Profile> profiles = OBJECT_MAPPER.readValue(fileReader, new TypeReference<Set<Profile>>() {
+            });
+            Set<ProfileCsv> anim3dSet = new HashSet<>();
+            Set<ProfileCsv> artist3dSet = new HashSet<>();
+            Set<ProfileCsv> architectSet = new HashSet<>();
+            Set<ProfileCsv> artistSet = new HashSet<>();
+            for (Profile profile : profiles) {
+                ProfileCsv profileCsv = new ProfileCsv();
+                profileCsv.fullName = profile.fullName;
+                profileCsv.aboutUrl = profile.artstationProfileUrl;
+                profileCsv.skills = convertSkills(profile.skills);
+                if (isApproach(profile.skills)) {
+                    addInfoToProfileCsv(profileCsv, profile.username, null, 0);
+                    if ((profileCsv.email != null && !profileCsv.email.isEmpty())
+                            || (profileCsv.fbUrl != null && !profileCsv.fbUrl.isEmpty())) {
+                        if (profile.skills.stream().map(Skill::getSkillName).anyMatch(ANIM_3D_SKILLS::contains)) {
+                            anim3dSet.add(profileCsv);
+                        } else if (profile.skills.stream().map(Skill::getSkillName).anyMatch(ARTIST_3D_SKILLS::contains)) {
+                            artist3dSet.add(profileCsv);
+                        } else if (profile.skills.stream().map(Skill::getSkillName).anyMatch(ARCHITECT_SKILLS::contains)) {
+                            architectSet.add(profileCsv);
+                        } else if (profile.skills.stream().map(Skill::getSkillName).anyMatch(ARTIST_SKILLS::contains)) {
+                            artistSet.add(profileCsv);
+                        }
+                    }
+                }
+            }
+            for (ProfileCsv profileCsv : anim3dSet) {
+                anim3dFileWriter.write(profileCsv + "\n");
+            }
+            for (ProfileCsv profileCsv : artist3dSet) {
+                artist3dFileWriter.write(profileCsv + "\n");
+            }
+            for (ProfileCsv profileCsv : architectSet) {
+                architectFileWriter.write(profileCsv + "\n");
+            }
+            for (ProfileCsv profileCsv : artistSet) {
+                artistFileWriter.write(profileCsv + "\n");
+            }
+            System.out.println("Converting for profile " + jsonFileName + " is completed!");
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static boolean isApproach(List<Skill> skills) {
+        return skills.stream()
+                .map(Skill::getSkillName)
+                .anyMatch(skill ->
+                        ANIM_3D_SKILLS.contains(skill) ||
+                                ARTIST_3D_SKILLS.contains(skill) ||
+                                ARCHITECT_SKILLS.contains(skill) ||
+                                ARTIST_SKILLS.contains(skill)
+                );
     }
 
     private static List<String> convertSkills(@NotNull List<Skill> skills) {

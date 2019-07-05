@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "skill_name": "2D Animation"
+  },
+  {
+    "id": 3,
+    "skill_name": "Art Direction"
+  },
+  {
+    "id": 580,
+    "skill_name": "Book Cover Illustration"
+  },
+  {
+    "id": 287,
+    "skill_name": "Cartooning"
+  },
+  {
+    "id": 47,
+    "skill_name": "Character Design"
+  },
+  {
+    "id": 384,
+    "skill_name": "Comic Art"
+  },
+  {
+    "id": 5,
+    "skill_name": "Concept Art"
+  },
+  {
+    "id": 6,
+    "skill_name": "Concept Design"
+  },
+  {
+    "id": 67,
+    "skill_name": "Creature Design"
+  },
+  {
+    "id": 7,
+    "skill_name": "Digital Painting"
+  },
+  {
+    "id": 64,
+    "skill_name": "Drawing"
+  },
+  {
+    "id": 9,
+    "skill_name": "Illustration"
+  },
+  {
+    "id": 43,
+    "skill_name": "Painting"
+  },
+  {
+    "id": 275,
+    "skill_name": "Pixel Art"
+  },
+  {
+    "id": 176,
+    "skill_name": "Scientific Illustration"
+  },
+  {
+    "id": 344,
+    "skill_name": "Sketching"
+  },
+  {
+    "id": 15,
+    "skill_name": "Storyboarding"
+  },
+  {
+    "id": 429,
+    "skill_name": "Traditional Art"
+  },
+  {
+    "id": 164,
+    "skill_name": "Vector Illustration"
+  },
+  {
+    "id": 740,
+    "skill_name": "Weapon Design"
+  }
+]
