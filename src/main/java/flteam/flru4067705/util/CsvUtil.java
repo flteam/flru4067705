@@ -68,6 +68,22 @@ public class CsvUtil {
         }
     }
 
+    private static void writeToFile(Set<ProfileCsv> set, String fileName) {
+        try (FileWriter fileWriter = new FileWriter(new File(fileName))) {
+            for (ProfileCsv profileCsv : set) {
+                fileWriter.write(profileCsv + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String translateName(String fullName) throws IOException {
+        String[] names = fullName.split(" ");
+        String name = names[0];
+        return TranslateUtil.translateFromEngToRus(name);
+    }
+
     public static void convertProfileToCsvWithDivide(String jsonFileName) {
         String countryName = jsonFileName.replace(".json", "");
         String dirName = "divide/" + countryName;
@@ -75,11 +91,8 @@ public class CsvUtil {
         if (!dir.exists()) {
             dir.mkdir();
         }
-        try (FileReader fileReader = new FileReader("profiles/" + jsonFileName);
-             FileWriter anim3dFileWriter = new FileWriter(new File(dirName + "/3D аниматоры.csv"));
-             FileWriter artist3dFileWriter = new FileWriter(new File(dirName + "/3D художники.csv"));
-             FileWriter architectFileWriter = new FileWriter(new File(dirName + "/Архитекторы.csv"));
-             FileWriter artistFileWriter = new FileWriter(new File(dirName + "/Художники.csv"))) {
+        try (FileReader fileReader = new FileReader("profiles/" + jsonFileName)) {
+            List<String> countries = Stream.of("Russia", "Ukraine", "Belarus").collect(Collectors.toList());
             Set<Profile> profiles = OBJECT_MAPPER.readValue(fileReader, new TypeReference<Set<Profile>>() {
             });
             Set<ProfileCsv> anim3dSet = new HashSet<>();
@@ -88,9 +101,9 @@ public class CsvUtil {
             Set<ProfileCsv> artistSet = new HashSet<>();
             for (Profile profile : profiles) {
                 ProfileCsv profileCsv = new ProfileCsv();
-                profileCsv.fullName = profile.fullName;
+                profileCsv.fullName = translateName(profile.fullName);
                 profileCsv.aboutUrl = profile.artstationProfileUrl;
-                profileCsv.skills = convertSkills(profile.skills);
+                profileCsv.skills = Collections.emptyList();
                 if (isApproach(profile.skills)) {
                     addInfoToProfileCsv(profileCsv, profile.username, null, 0);
                     if ((profileCsv.email != null && !profileCsv.email.isEmpty())
@@ -107,17 +120,17 @@ public class CsvUtil {
                     }
                 }
             }
-            for (ProfileCsv profileCsv : anim3dSet) {
-                anim3dFileWriter.write(profileCsv + "\n");
-            }
-            for (ProfileCsv profileCsv : artist3dSet) {
-                artist3dFileWriter.write(profileCsv + "\n");
-            }
-            for (ProfileCsv profileCsv : architectSet) {
-                architectFileWriter.write(profileCsv + "\n");
-            }
-            for (ProfileCsv profileCsv : artistSet) {
-                artistFileWriter.write(profileCsv + "\n");
+            writeToFile(anim3dSet, dirName + "/3D аниматоры.csv");
+            writeToFile(artist3dSet, dirName + "/3D художники.csv");
+            writeToFile(architectSet, dirName + "/Архитекторы.csv");
+            writeToFile(artistSet, dirName + "/Художники.csv");
+            if (!countries.contains(countryName)) {
+                Set<ProfileCsv> set = new HashSet<>();
+                set.addAll(anim3dSet);
+                set.addAll(artist3dSet);
+                set.addAll(architectSet);
+                set.addAll(artistSet);
+                writeToFile(set, dirName + "/all.csv");
             }
             System.out.println("Converting for profile " + jsonFileName + " is completed!");
         } catch (Throwable e) {
